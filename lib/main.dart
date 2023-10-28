@@ -38,6 +38,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  List<dynamic> SpaceNameList = ['poop'];
+  Future<void> searchSpace(String query) async {
+    final suggestion = SpaceNameList.where((space){
+      final input = query.toLowerCase();
+      return space.toString().contains(input);
+    }).toList();
+    setState(() {
+      SpaceNameList = suggestion;
+    });
+  }
+  @override
+  void initState() {
+    super.initState();
+    initSpaceNameList();
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    SpaceNameList = [];
+  }
+  Future<void> initSpaceNameList() async {
+    final dbQuery = await supabase.from('test').select('name');
+    for (final item in dbQuery){
+      SpaceNameList.add(item['name']);
+      print(item['name']);
+    }
+
+    print(SpaceNameList.toString());
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -64,12 +93,37 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: (){
                   DeleteSpace('spacename','title','owner');
                 },
-              )
+              ),
             ],
           ),
-          SpaceList(),
+          Container(
+            height: 50,
+            margin: EdgeInsets.all(16),
+            child: TextField(
+              decoration: InputDecoration(
+                hintText: 'sth',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                )
+              ),
+              onChanged: searchSpace,
+            ),
+          ),
+          Container(
+            height: 500,
+            margin: EdgeInsets.all(10),
+            child: ListView.builder(
+                itemCount: SpaceNameList.length,
+                itemBuilder: ((context, index){
+                  return ListTile(
+                    title: Text(SpaceNameList[index].toString()),
+                  );
+                })),
+          ),
+
         ],
       ),
     );
   }
 }
+
