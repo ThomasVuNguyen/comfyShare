@@ -1,7 +1,11 @@
+import 'package:comfyshare/DarkTheme.dart';
+import 'package:comfyshare/SpaceCard.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'AddNewSpace.dart';
+import 'HomeScreen.dart';
 import 'SpaceListRender.dart';
 import 'dababase_function.dart';
 
@@ -21,108 +25,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'ComfyShare',
+      debugShowCheckedModeBanner: false,
+      darkTheme: DarkTheme,
+      theme: DarkTheme,
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-  final String title;
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  List<dynamic> SpaceNameList = ['poop'];
-  Future<void> searchSpace(String query) async {
-    final suggestion = SpaceNameList.where((space){
-      final input = query.toLowerCase();
-      return space.toString().contains(input);
-    }).toList();
-    setState(() {
-      SpaceNameList = suggestion;
-    });
-  }
-  @override
-  void initState() {
-    super.initState();
-    initSpaceNameList();
-  }
-  @override
-  void dispose(){
-    super.dispose();
-    SpaceNameList = [];
-  }
-  Future<void> initSpaceNameList() async {
-    final dbQuery = await supabase.from('test').select('name');
-    for (final item in dbQuery){
-      SpaceNameList.add(item['name']);
-      print(item['name']);
-    }
-
-    print(SpaceNameList.toString());
-  }
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              MaterialButton(
-                child: Text('Add Space'),
-                  color: Colors.cyan,
-                  onPressed: (){
-                    showDialog(context: context, builder: (BuildContext context){
-                      return const AddNewSpaceWidget();
-                    });
-                  },
-              ),
-              MaterialButton(
-                child: Text('Delete Space'),
-                color: Colors.red,
-                onPressed: (){
-                  DeleteSpace('spacename','title','owner');
-                },
-              ),
-            ],
-          ),
-          Container(
-            height: 50,
-            margin: EdgeInsets.all(16),
-            child: TextField(
-              decoration: InputDecoration(
-                hintText: 'sth',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10),
-                )
-              ),
-              onChanged: searchSpace,
-            ),
-          ),
-          Container(
-            height: 500,
-            margin: EdgeInsets.all(10),
-            child: ListView.builder(
-                itemCount: SpaceNameList.length,
-                itemBuilder: ((context, index){
-                  return ListTile(
-                    title: Text(SpaceNameList[index].toString()),
-                  );
-                })),
-          ),
-
-        ],
-      ),
     );
   }
 }
