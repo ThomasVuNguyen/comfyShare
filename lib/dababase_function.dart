@@ -11,7 +11,6 @@ Future<List<Map<dynamic, dynamic>>> SpaceListRender() async{
   final List<Map<dynamic, dynamic>> data = await supabase.from("Space List").select();
   print(data.toString());
   return data;
-
 }
 
 Future<void> SpaceRender() async{

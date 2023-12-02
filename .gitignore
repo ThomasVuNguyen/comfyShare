@@ -1,4 +1,5 @@
 # Miscellaneous
+*.txt
 *.class
 *.log
 *.pyc
@@ -9,7 +10,7 @@
 .history
 .svn/
 migrate_working_dir/
-
+/lib/secrets/
 # IntelliJ related
 *.iml
 *.ipr
@@ -42,3 +43,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+
