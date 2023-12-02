@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../AddNewSpace.dart';
+import 'AddNewSpace.dart';
 import 'Logo.dart';
 
 class ComfyShareAppBar extends StatefulWidget implements PreferredSizeWidget{
@@ -18,6 +18,7 @@ class _ComfyShareAppBarState extends State<ComfyShareAppBar> {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0,
         title: const ComfyLogo(),

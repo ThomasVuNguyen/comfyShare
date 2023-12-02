@@ -1,4 +1,4 @@
-import 'package:comfyshare/AddNewSpace.dart';
+import 'package:comfyshare/widgets/AddNewSpace.dart';
 import 'package:comfyshare/widgets/AppBar.dart';
 import 'package:flutter/material.dart';
 

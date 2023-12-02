@@ -18,15 +18,17 @@ class _ComfyDetailPageState extends State<ComfyDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: DownloadComfyFileButton(SpaceName: widget.SpaceName, title: widget.title,),
-      //appBar: ComfyShareAppBar(),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Text('${widget.SpaceName}-${widget.title}'),
-          Gap(100),
-          Image.network('$SupabaseSpaceFileStoragePath/${widget.SpaceName}-${widget.title}/${widget.SpaceName}-${widget.title}.gif', width: 120,),
-          SpaceDescription(SpaceName: widget.SpaceName, title: widget.title)
-        ],
+      appBar: ComfyShareAppBar(),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text('${widget.SpaceName}-${widget.title}'),
+            Gap(100),
+            Image.network('$SupabaseSpaceFileStoragePath/${widget.SpaceName}-${widget.title}/${widget.SpaceName}-${widget.title}.gif', width: 120,),
+            SpaceDescription(SpaceName: widget.SpaceName, title: widget.title)
+          ],
+        ),
       ),
     );
   }

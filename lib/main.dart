@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'AddNewSpace.dart';
+import 'widgets/AddNewSpace.dart';
 import 'HomeScreen.dart';
 
 import 'dababase_function.dart';
